@@ -22,8 +22,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     try {
       final todoLocal = await todoRepository.getTodoLocal();
 
-      // final List<Todo> todo = todoLocal.where((element) => !element.isDeleted).toList();
-
       if (todoLocal != null) {
         todosLength = todoLocal.length;
         emit(TodoLoaded(todos: todoLocal));

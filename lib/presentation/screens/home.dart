@@ -107,11 +107,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       IconButton(
                         onPressed: () {
+                          task.text = todo.todo;
                           dialog.addUpdateDialog(
                             context,
-                            controller: TextEditingController(text: todo.todo),
+                            controller: task,
                             onPressed: () {
-                              context.read<TodoBloc>().add(UpdateTodo(todo: todo));
+                              final Todo updatedTodo = Todo(
+                                todo: task.text,
+                                completed: false,
+                                userId: todo.userId,
+                              );
+
+                              context.read<TodoBloc>().add(UpdateTodo(todo: updatedTodo));
                               task.clear();
                               Navigator.of(context).pop();
                             },

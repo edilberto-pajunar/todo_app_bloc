@@ -106,15 +106,17 @@ class TodoRepository {
       final List<Todo> todos = (jsonDecoded).map((e) => Todo.fromJson(e)).toList();
 
       for (int i = 0; i < todos.length; i++) {
-        print('Checking userId: ${todo.userId} vs ${todos[i].userId}');
         if (todo.userId == todos[i].userId) {
           todos[i] = todos[i].copyWith(
             todo: todo.todo,
           );
-
-          print('Updated todo at index $i: ${todos[i]}');
         }
       }
+
+      todos[todos.indexWhere((element) => element.userId == todo.userId)] = todo;
+      print(todos[todos.indexWhere((element) => element.userId == todo.userId)]);
+
+      print(todo.todo);
 
       await sp.setString("myListKey", jsonEncode(todos));
     }
